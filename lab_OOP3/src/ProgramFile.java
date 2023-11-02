@@ -1,32 +1,26 @@
-class ProgramFile extends File {
+import java.util.Date;
+
+public class ProgramFile extends File {
     private int lineCount;
     private int classCount;
     private int methodCount;
 
-    public ProgramFile(String name, String extension, long createdTime, long updatedTime, String content) {
-        super(name, extension, createdTime, updatedTime);
+    public ProgramFile(String name, Date createdTime, Date updatedTime, int lineCount, int classCount, int methodCount) {
+        super(name, createdTime, updatedTime);
+        this.lineCount = lineCount;
+        this.classCount = classCount;
+        this.methodCount = methodCount;
+    }
 
-        String[] lines = content.split("\n");
-        this.lineCount = lines.length;
-        this.classCount = 0;
-        this.methodCount = 0;
+    public int getLineCount() {
+        return lineCount;
+    }
 
-        if (extension.equals(".py")) {
-            for (String line : lines) {
-                if (line.trim().startsWith("class ")) {
-                    this.classCount++;
-                } else if (line.trim().startsWith("def ")) {
-                    this.methodCount++;
-                }
-            }
-        } else if (extension.equals(".java")) {
-            for (String line : lines) {
-                if (line.trim().startsWith("class ") || line.trim().startsWith("interface ")) {
-                    this.classCount++;
-                } else if (line.trim().startsWith("public ") || line.trim().startsWith("private ")) {
-                    this.methodCount++;
-                }
-            }
-        }
+    public int getClassCount() {
+        return classCount;
+    }
+
+    public int getMethodCount() {
+        return methodCount;
     }
 }
