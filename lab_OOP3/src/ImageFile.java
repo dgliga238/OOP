@@ -3,8 +3,9 @@ import java.util.Date;
 public class ImageFile extends File {
     private String imageSize;
 
+
     public ImageFile(String name, Date createdTime, Date updatedTime, String imageSize) {
-        super(name, createdTime, updatedTime);
+        super(name);
         this.imageSize = imageSize;
     }
 

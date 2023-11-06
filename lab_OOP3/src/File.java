@@ -7,10 +7,10 @@ public class File {
     private Date createdTime;
     private Date updatedTime;
 
-    public File(String name, Date createdTime, Date updatedTime) {
+    public File(String name) {
         this.name = name;
-        this.createdTime = createdTime;
-        this.updatedTime = updatedTime;
+        this.createdTime = new Date();
+        this.updatedTime = new Date();
     }
 
     public String getName() {
@@ -23,6 +23,11 @@ public class File {
 
     public Date getUpdatedTime() {
         return updatedTime;
+    }
+
+
+    public boolean exists() {
+        return false;
     }
 }
 
