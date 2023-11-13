@@ -1,12 +1,12 @@
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         String folderPath = "C:\\Users\\dglig\\IdeaProjects\\lab_1\\lab_OOP3\\TestFolder";
         ProgramLoop monitor = new ProgramLoop(folderPath);
         while (true) {
             System.out.println("Actions:");
             System.out.println("1. commit");
             System.out.println("2. info <filename>");
-            System.out.println("3. status");
+            System.out.println("3. status\n");
 
             java.util.Scanner scanner = new java.util.Scanner(System.in);
             String[] choice = scanner.nextLine().split(" ", 2);
