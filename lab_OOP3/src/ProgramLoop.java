@@ -25,8 +25,8 @@ class ProgramLoop {
     }
 
     public void status() {
-        Status status = new Status(folderPath, lastSnapshotTime, dateFormat);
-        status.performStatus();
+        Status status = new Status(folderPath);
+        status.check();
     }
 
     public void info(String filename) {

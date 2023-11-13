@@ -1,22 +1,21 @@
-
 import java.io.*;
 import java.nio.file.*;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
 
+public class Status {
 
-class Status {
     private final String folderPath;
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private long lastSnapshotTime;
-    private final SimpleDateFormat dateFormat;
 
-    public Status(String folderPath, long lastSnapshotTime, SimpleDateFormat dateFormat) {
+    public Status(String folderPath) {
         this.folderPath = folderPath;
-        this.lastSnapshotTime = lastSnapshotTime;
-        this.dateFormat = dateFormat;
+        this.lastSnapshotTime = loadLastSnapshotTime("text.txt");
     }
 
-    public void performStatus() {
+    public void check() {
         System.out.println("Last Snapshot Time: " + dateFormat.format(new Date(lastSnapshotTime)));
 
         boolean filesChanged = false;
@@ -39,12 +38,32 @@ class Status {
             e.printStackTrace();
         }
 
-        if (filesChanged) {
-            // Update lastSnapshotTime only if changes were detected during the iteration
-            lastSnapshotTime = System.currentTimeMillis();
-        } else {
+        if (!filesChanged) {
             System.out.println("No files were changed since the last snapshot.");
         }
     }
-}
 
+    private long loadLastSnapshotTime(String fileName) {
+        Path path = FileSystems.getDefault().getPath(fileName);
+
+        if (Files.exists(path)) {
+            try {
+                List<String> lines = Files.readAllLines(path);
+                if (!lines.isEmpty()) {
+                    return Long.parseLong(lines.get(0).trim());
+                }
+            } catch (IOException | NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
+        return System.currentTimeMillis();
+    }
+
+    private void saveLastSnapshotTime(long lastSnapshotTime) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("text.txt"))) {
+            writer.write(Long.toString(lastSnapshotTime));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
