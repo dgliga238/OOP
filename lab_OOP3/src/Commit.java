@@ -1,12 +1,6 @@
 import java.io.*;
-import java.nio.file.*;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 
 class Commit {
     private final String folderPath;

@@ -3,31 +3,25 @@ import java.nio.file.Path;
 import java.util.Date;
 
 public class File {
-    private String name;
-    private Date createdTime;
-    private Date updatedTime;
+    protected String name;
+    protected Date createdTime;
+    protected Date updatedTime;
 
-    public File(String name) {
+    public File(String name, Date createdTime, Date updatedTime) {
         this.name = name;
         this.createdTime = new Date();
         this.updatedTime = new Date();
     }
 
+
     public String getName() {
         return name;
     }
 
-    public Date getCreatedTime() {
-        return createdTime;
-    }
-
-    public Date getUpdatedTime() {
-        return updatedTime;
-    }
-
-
-    public boolean exists() {
-        return false;
+    void displayFileInfo() {
+        System.out.println("File Name: " + getName());
+        System.out.println("Created: " + ProgramLoop.dateFormat.format(createdTime));
+        System.out.println("Last Modified: " + ProgramLoop.dateFormat.format(updatedTime));
     }
 }
 

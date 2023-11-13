@@ -1,17 +1,13 @@
 
 import java.io.*;
 import java.nio.file.*;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
+
 
 class Status {
     private final String folderPath;
-    private final long lastSnapshotTime;
+    private long lastSnapshotTime;
     private final SimpleDateFormat dateFormat;
 
     public Status(String folderPath, long lastSnapshotTime, SimpleDateFormat dateFormat) {
@@ -43,8 +39,12 @@ class Status {
             e.printStackTrace();
         }
 
-        if (!filesChanged) {
+        if (filesChanged) {
+            // Update lastSnapshotTime only if changes were detected during the iteration
+            lastSnapshotTime = System.currentTimeMillis();
+        } else {
             System.out.println("No files were changed since the last snapshot.");
         }
     }
 }
+
